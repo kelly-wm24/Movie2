@@ -6,6 +6,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from rapidfuzz import process
 
+# --- 1. PAGE CONFIGURATION (Must be the first Streamlit command) ---
+# This makes the app use the full width of the screen and adds a browser tab icon.
+st.set_page_config(
+    page_title="Cinematch | AI Recommendations",
+    page_icon="🍿",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # --- 1. DATA LOADING & PREPROCESSING ---
 @st.cache_data
 def load_data():
@@ -193,3 +202,100 @@ elif page == "System Features":
     }
     for feat, desc in features.items():
         st.write(f"🔹 **{feat}**: {desc}")
+
+# --- 2. CUSTOM CSS FOR STYLING ---
+# We use the HTML trick we discussed earlier just for styling the containers!
+st.markdown("""
+    <style>
+    /* Main background and font adjustments */
+    .stApp {
+        background-color: #0E1117;
+        color: #FAFAFA;
+    }
+    /* Style for our custom movie cards */
+    .movie-card {
+        background-color: #1E2127;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        text-align: center;
+        transition: transform 0.2s;
+    }
+    .movie-card:hover {
+        transform: scale(1.02);
+        border: 1px solid #FF4B4B;
+    }
+    .movie-title {
+        color: #FF4B4B;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- 3. SIDEBAR NAVIGATION & FILTERS ---
+with st.sidebar:
+    st.image("https://cdn-icons-png.flaticon.com/512/3171/3171927.png", width=100) # Placeholder logo
+    st.title("🍿 Cinematch AI")
+    st.markdown("---")
+    
+    # Navigation
+    page = st.radio("Navigate", ["🏠 Home / Discover", "🔍 Deep Dive Analysis", "⚙️ System Features"])
+    
+    st.markdown("---")
+    st.subheader("Filter Preferences")
+    # Interactive sliders and dropdowns for the user
+    min_rating = st.slider("Minimum Rating", 0.0, 10.0, 7.0, 0.5)
+    selected_genre = st.selectbox("Favorite Genre", ["All", "Action", "Comedy", "Sci-Fi", "Drama"])
+
+# --- 4. MAIN PAGE CONTENT ---
+if page == "🏠 Home / Discover":
+    # Hero Section
+    st.title("Find Your Next Favorite Movie")
+    st.write("Tell us what you like, and our Hybrid AI will do the rest.")
+    
+    # Search Bar
+    search_query = st.text_input("🔍 Search for a movie you love...", placeholder="e.g., Toy Story, The Matrix...")
+
+    st.markdown("### 🔥 Top AI Recommendations")
+    
+    # --- 5. GRID LAYOUT FOR MOVIE CARDS ---
+    # Instead of st.table(), we use columns to create a grid of movie cards
+    col1, col2, col3, col4 = st.columns(4)
+    
+    # Example Dummy Data (Replace with your actual c_recs, cl_recs, h_recs)
+    movies = [
+        {"title": "The Matrix", "score": 9.8, "match": "Hybrid"},
+        {"title": "Inception", "score": 9.5, "match": "Content"},
+        {"title": "Interstellar", "score": 9.2, "match": "Collaborative"},
+        {"title": "Dune", "score": 9.0, "match": "Hybrid"}
+    ]
+    
+    # Loop through columns and populate them with styled HTML cards
+    columns = [col1, col2, col3, col4]
+    for i, col in enumerate(columns):
+        with col:
+            movie = movies[i]
+            # Using custom HTML for the visual card
+            card_html = f"""
+            <div class="movie-card">
+                <div class="movie-title">{movie['title']}</div>
+                <p>⭐ {movie['score']}/10</p>
+                <p style="font-size: 12px; color: #888;">Match: {movie['match']}</p>
+            </div>
+            """
+            st.markdown(card_html, unsafe_allow_html=True)
+            # Add a native Streamlit button under the card
+            st.button(f"Details", key=f"btn_{i}", use_container_width=True)
+
+elif page == "⚙️ System Features":
+    st.header("🧠 Comprehensive System Features")
+    
+    # Using expanders for a cleaner UI
+    with st.expander("Hybrid Recommendation System", expanded=True):
+        st.write("Combines Content (TF-IDF) & Collaborative Filtering to give you the best of both worlds.")
+    
+    with st.expander("Explainable AI"):
+        st.info("We don't just guess; we tell you exactly *why* a movie was picked using intersection analysis.")
+
