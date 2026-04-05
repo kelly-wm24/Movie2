@@ -236,7 +236,7 @@ st.markdown("""
 
 # --- 3. SIDEBAR NAVIGATION & FILTERS ---
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/3171/3171927.png", width:50) # Placeholder logo
+    st.image("https://cdn-icons-png.flaticon.com/512/3171/3171927.png", width:100) # Placeholder logo
     st.title("🍿 Cinema")
     st.markdown("---")
     
