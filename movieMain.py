@@ -226,7 +226,7 @@ st.markdown("""
         border: 1px solid #FF4B4B;
     }
     .movie-title {
-        color:  #FAFAFA;
+        color:  #FFFFFF;
         font-size: 20px;
         font-weight: bold;
         margin-bottom: 5px;
