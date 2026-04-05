@@ -209,7 +209,7 @@ st.markdown("""
     <style>
     /* Main background and font adjustments */
     .stApp {
-        background-color: #blue;
+        background-color: #800000;
         color: #FAFAFA;
     }
     /* Style for our custom movie cards */
