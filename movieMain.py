@@ -209,7 +209,7 @@ st.markdown("""
     <style>
     /* Main background and font adjustments */
     .stApp {
-        background-color: #0E1117;
+        background-color: #blue;
         color: #FAFAFA;
     }
     /* Style for our custom movie cards */
@@ -237,7 +237,7 @@ st.markdown("""
 # --- 3. SIDEBAR NAVIGATION & FILTERS ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3171/3171927.png", width=100) # Placeholder logo
-    st.title("🍿 Cinematch AI")
+    st.title("🍿 Cinema")
     st.markdown("---")
     
     # Navigation
@@ -251,44 +251,8 @@ with st.sidebar:
 
 # --- 4. MAIN PAGE CONTENT ---
 if page == "🏠 Home / Discover":
-    # Hero Section
-    st.title("Find Your Next Favorite Movie")
-    st.write("Tell us what you like, and our Hybrid AI will do the rest.")
-    
-    # Search Bar
-    search_query = st.text_input("🔍 Search for a movie you love...", placeholder="e.g., Toy Story, The Matrix...")
 
-    st.markdown("### 🔥 Top AI Recommendations")
-    
-    # --- 5. GRID LAYOUT FOR MOVIE CARDS ---
-    # Instead of st.table(), we use columns to create a grid of movie cards
-    col1, col2, col3, col4 = st.columns(4)
-    
-    # Example Dummy Data (Replace with your actual c_recs, cl_recs, h_recs)
-    movies = [
-        {"title": "The Matrix", "score": 9.8, "match": "Hybrid"},
-        {"title": "Inception", "score": 9.5, "match": "Content"},
-        {"title": "Interstellar", "score": 9.2, "match": "Collaborative"},
-        {"title": "Dune", "score": 9.0, "match": "Hybrid"}
-    ]
-    
-    # Loop through columns and populate them with styled HTML cards
-    columns = [col1, col2, col3, col4]
-    for i, col in enumerate(columns):
-        with col:
-            movie = movies[i]
-            # Using custom HTML for the visual card
-            card_html = f"""
-            <div class="movie-card">
-                <div class="movie-title">{movie['title']}</div>
-                <p>⭐ {movie['score']}/10</p>
-                <p style="font-size: 12px; color: #888;">Match: {movie['match']}</p>
-            </div>
-            """
-            st.markdown(card_html, unsafe_allow_html=True)
-            # Add a native Streamlit button under the card
-            st.button(f"Details", key=f"btn_{i}", use_container_width=True)
-
+   
 elif page == "⚙️ System Features":
     st.header("🧠 Comprehensive System Features")
     
