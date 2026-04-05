@@ -250,10 +250,8 @@ with st.sidebar:
     selected_genre = st.selectbox("Favorite Genre", ["All", "Action", "Comedy", "Sci-Fi", "Drama"])
 
 # --- 4. MAIN PAGE CONTENT ---
-if page == "🏠 Home / Discover":
 
-   
-elif page == "⚙️ System Features":
+if page == "⚙️ System Features":
     st.header("🧠 Comprehensive System Features")
     
     # Using expanders for a cleaner UI
